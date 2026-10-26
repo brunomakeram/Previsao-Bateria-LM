@@ -5,14 +5,21 @@ Este projeto implementa um modelo de aprendizado de máquina (Deep Learning bás
 
 ## 💻 Ambiente de Desenvolvimento
 - **Fase Inicial:** Desenvolvido e testado no ambiente em nuvem do **Google Colab**, aproveitando os recursos de execução em Python.
-- **Fase Final / Organização:** Finalizado localmente no **VS Code**, utilizando a extensão do Colab para integração contínua e execução do notebook (`.ipynb`).
+- **Fase Final / Organização:** Finalizado localmente no **VS Code**, utilizando a extensão do Colab para integração contínua e execução do notebook.
+
+---
+
+## 📂 Estrutura do Projeto
+- `Bateria/Bateria.ipynb`: Código-fonte principal contendo a importação dos dados, a estruturação da rede neural, o treinamento e a inferência.
+- `imagens/imagem.jpg`: Registro visual do log de resultados gerado após o treino.
 
 ---
 
 ## 🚀 Como Usar
-1. Clone o repositório em sua máquina ou abra o arquivo do notebook (`.ipynb`) no Google Colab ou VS Code.
-2. Certifique-se de ter as bibliotecas necessárias instaladas (`tensorflow`, `numpy`).
-3. Execute as células sequencialmente para carregar os dados de treino, compilar o modelo e realizar as previsões de teste.
+1. Clone o repositório em sua máquina.
+2. Abra o arquivo `Bateria/Bateria.ipynb` utilizando o Google Colab ou o VS Code (com a extensão Jupyter instalada).
+3. Certifique-se de ter as bibliotecas necessárias instaladas no seu ambiente (`tensorflow`, `numpy`).
+4. Execute o script sequencialmente para carregar os dados de treino, compilar o modelo otimizado e realizar as previsões de teste.
 
 ---
 
