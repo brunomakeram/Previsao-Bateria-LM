@@ -2,7 +2,9 @@
 
 ## 📌 O que o projeto faz
 
-Este projeto implementa um modelo de aprendizado de máquina (Deep Learning básico com Keras) estruturado para prever o consumo percentual de uma bateria. O sistema aprende a partir de dados medidos anteriormente (relacionando peso/carga e distância) para estimar o gasto energético de forma automatizada.
+Este projeto implementa um modelo de aprendizado de máquina (Deep Learning básico com Keras) estruturado para prever o consumo percentual de uma bateria. O sistema aprende a partir de dados medidos anteriormente (relacionando peso/carga e distância) para estimar o gasto energético de forma automatizada. 
+
+Para fins de organização técnica e clareza, o desenvolvimento do script foi estruturado didaticamente em **7 etapas práticas** (desde a preparação e conversão dos dados até a extração e validação dos resultados).
 
 ---
 
@@ -36,7 +38,7 @@ Este projeto implementa um modelo de aprendizado de máquina (Deep Learning bás
 
 ## 💻 Código-Fonte
 
-Abaixo está o script estruturado para o treinamento do modelo, com o fluxo dividido em etapas e os hiperparâmetros ajustados para otimização de tempo e precisão:
+Abaixo está o script estruturado para o treinamento do modelo. O fluxo está claramente dividido nas **7 etapas práticas** mencionadas, com os hiperparâmetros ajustados para otimização de tempo e precisão:
 
 ```python
 
@@ -49,7 +51,6 @@ import tensorflow as tf
 # ==================================================================================================== #
 
 # Etapa 1 Dados: Juntar exemplos com a resposta certa
-
 medicoes_viagens = np.array([
 
     [0, 1],
@@ -131,6 +132,7 @@ print("c (viés):", vies[0])
 print("Gasto previsto:", gasto_previsto[0][0])
 
 ```
+
 ---
 
 ## 🖼️ Imagens do Projeto
