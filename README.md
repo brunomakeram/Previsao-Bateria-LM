@@ -2,7 +2,7 @@
 
 ## 📌 O que o projeto faz
 
-Este projeto implementa um modelo de aprendizado de máquina (Deep Learning básico com Keras) estruturado para prever o consumo percentual de uma bateria. O sistema aprende a partir de dados medidos anteriormente (relacionando peso/carga e distância) para estimar o gasto energético de forma automatizada. 
+Este projeto implementa um modelo de aprendizado de máquina (Regressão Linear com Keras) estruturado para prever o consumo percentual de uma bateria. O sistema aprende a partir de dados medidos anteriormente (relacionando peso/carga e distância) para estimar o gasto energético de forma automatizada. 
 
 Para fins de organização técnica e clareza, o desenvolvimento do script foi estruturado didaticamente em **7 etapas práticas** (desde a preparação e conversão dos dados até a extração e validação dos resultados).
 
