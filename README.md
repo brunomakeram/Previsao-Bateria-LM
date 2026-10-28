@@ -156,7 +156,7 @@ else:
 Resultados gráficos e visualizações do treinamento do modelo:
 
 ### Para importar e usar o drive no Colab
-![Para importar e usar o drive no Colab](imagens/imagem.jpg)
+![Para importar e usar o drive no Colab](imagens/importaDrive.jpg)
 
 ### Saída do resultado do Treino
 ![Saída do resultado do Treino](imagens/imagem.jpg)
