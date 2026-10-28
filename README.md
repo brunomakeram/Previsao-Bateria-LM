@@ -237,9 +237,9 @@ A REALIDADE ATUAL DO MODELO (500 ÉPOCAS)
 
 - Desempenho: O tempo de execução foi drasticamente reduzido, tornando o processo de treinamento extremamente rápido e eficiente.
 
-- Parâmetros Físicos Estabilizados: Os pesos aprendidos refletem perfeitamente a realidade física do barco autônomo, mantendo valores positivos e proporcionais (ex: a ≈ 0.52 para carga, b ≈ 4.78 para distância e um viés negativo coerente).
+- Parâmetros Físicos Estabilizados: Os pesos aprendidos refletem perfeitamente a realidade desejada com os dados iniciais, mantendo valores positivos e proporcionais (ex: a ≈ 0.52 para carga, b ≈ 4.78 para distância e um viés negativo coerente).
 
-O objetivo inicial do projeto foi plenamente atingido com excelente precisão, validação física dos dados e um fluxo otimizado pronto para exportação e uso prático.
+O objetivo inicial do projeto foi plenamente atingido com excelente precisão, validação física dos dados e um fluxo otimizado pronto para exportação e uso prático em testes e apredizado inicial.
 
 ---
 
