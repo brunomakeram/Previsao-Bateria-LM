@@ -219,11 +219,27 @@ Resultados gráficos e visualizações do treinamento do modelo:
 
 1. **Otimização do Método de Inferência:**
 
-   Entendimento sobre a diferença de desempenho entre utilizar o método `model.predict()` e a chamada direta do objeto do modelo (`model(data, training=False).numpy()`). A chamada direta evita o *overhead* e os avisos de *retracing* do TensorFlow (`tf.function`) em execuções de inferência individual, resultando em um código mais limpo e execução mais eficiente.
+Entendimento sobre a diferença de desempenho entre utilizar o método `model.predict()` e a chamada direta do objeto do modelo (`model(data, training=False).numpy()`). A chamada direta evita o *overhead* e os avisos de *retracing* do TensorFlow (`tf.function`) em execuções de inferência individual, resultando em um código mais limpo e execução mais eficiente.
 
-2. **Calibração Empírica de Hiperparâmetros (Ajuste de Épocas):**
+**Calibração Empírica de Hiperparâmetros (Ajuste de Épocas):**
 
-   Compreensão sobre o impacto da quantidade de épocas no tempo de execução e na convergência do modelo. O material de estudo sugeria 3.000 épocas, porém, após testes empíricos controlados (avaliando o comportamento a cada variação de épocas), identificou-se o valor de **500 épocas** como a quantidade ideal para alcançar os parâmetros matemáticos desejados ($a \approx 0.99$, $b \approx 9.11$, $c \approx -1.89$) mantendo o tempo de execução reduzido para cerca de 1 minuto.
+COMPREENSÃO INICIAL E AJUSTES
+
+- O material de estudo sugeria inicialmente um número elevado de épocas (como 3.000) e apresentava parâmetros teóricos antigos (a ≈ 0.99, b ≈ 9.11, c ≈ -1.89).
+
+- Após testes empíricos controlados e a normalização correta das variáveis de entrada (Carga e Distância), identificou-se que o comportamento do modelo mudou significativamente.
+
+A REALIDADE ATUAL DO MODELO (500 ÉPOCAS)
+
+- Quantidade ideal de épocas definida: 500 épocas.
+
+- Com 500 épocas aliadas ao otimizador Adam (com learning rate ajustado) e à normalização das entradas, o modelo atinge convergência total com uma taxa de erro (Loss / MSE) praticamente nula (na faixa de 10^-5).
+
+- Desempenho: O tempo de execução foi drasticamente reduzido, tornando o processo de treinamento extremamente rápido e eficiente.
+
+- Parâmetros Físicos Estabilizados: Os pesos aprendidos refletem perfeitamente a realidade física do barco autônomo, mantendo valores positivos e proporcionais (ex: a ≈ 0.52 para carga, b ≈ 4.78 para distância e um viés negativo coerente).
+
+O objetivo inicial do projeto foi plenamente atingido com excelente precisão, validação física dos dados e um fluxo otimizado pronto para exportação e uso prático.
 
 ---
 
