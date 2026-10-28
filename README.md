@@ -4,7 +4,9 @@
 
 Este projeto implementa um modelo de aprendizado de máquina (Regressão Linear com Keras) estruturado para prever o consumo percentual de uma bateria. O sistema aprende a partir de dados medidos anteriormente (relacionando peso/carga e distância) para estimar o gasto energético de forma automatizada. 
 
-Para fins de organização técnica e clareza, o desenvolvimento do script foi estruturado didaticamente em **7 etapas práticas** (desde a preparação e conversão dos dados até a extração e validação dos resultados).
+Os valores de carga e distância são digitados pelo usuário via `input`, validados dentro de limites físicos e, se a previsão for válida, salvos de volta no dataset (CSV), que cresce a cada execução.
+
+Para fins de organização técnica e clareza, o desenvolvimento do script foi estruturado didaticamente em **8 etapas práticas** (desde a preparação e conversão dos dados até a extração e validação dos resultados. A oitava etapa fica no arquivo Prints.py).
 
 ---
 
@@ -20,7 +22,13 @@ Para fins de organização técnica e clareza, o desenvolvimento do script foi e
 
 - `Bateria/Bateria.ipynb`: Código-fonte principal contendo a importação dos dados, a estruturação da rede neural, o treinamento e a inferência.
 
+- `Prints/Prints.py`: Arquivo que centraliza as mensagens e a exibição dos resultados (`mostrar_resultados`), deixando o código principal mais limpo.
+
+- `Dataset/Bateria.csv`: Dataset com as colunas `Carga`, `Distância` e `Gasto`, lido no início do treino e atualizado com os novos dados válidos.
+
 - `imagens/imagem.jpg`: Registro visual do log de resultados gerado após o treino.
+
+- `imagens/importaDrive.jpg`: Registro visual da importação e montagem do Google Drive no Colab.
 
 ---
 
@@ -30,9 +38,11 @@ Para fins de organização técnica e clareza, o desenvolvimento do script foi e
 
 2. Abra o arquivo `Bateria/Bateria.ipynb` utilizando o Google Colab ou o VS Code (com a extensão Jupyter instalada).
 
-3. Certifique-se de ter as bibliotecas necessárias instaladas no seu ambiente (`tensorflow`, `numpy`).
+3. Certifique-se de ter as bibliotecas necessárias instaladas no seu ambiente (`tensorflow`, `numpy`, `pandas`).
 
-4. Execute o script sequencialmente para carregar os dados de treino, compilar o modelo otimizado e realizar as previsões de teste.
+4. Coloque `Prints.py` e `Bateria.csv` no seu Google Drive e ajuste os caminhos no código (`sys.path.append` e a variável `caminho`) para as pastas onde você os guardou.
+
+5. Execute o script sequencialmente, digite a carga (kg) e a distância (km) quando solicitado, e acompanhe o treino e a previsão de gasto.
 
 ---
 
@@ -177,17 +187,33 @@ Resultados gráficos e visualizações do treinamento do modelo:
 
    Compreensão sobre o impacto da quantidade de épocas no tempo de execução e na convergência do modelo. O material de estudo sugeria 3.000 épocas, porém, após testes empíricos controlados (avaliando o comportamento a cada variação de épocas), identificou-se o valor de **1.450 épocas** como a quantidade ideal para alcançar os parâmetros matemáticos desejados ($a \approx 0.99$, $b \approx 9.11$, $c \approx -1.89$) mantendo o tempo de execução reduzido para cerca de 1 minuto.
 
+3. **A Importância de um Bom Dataset:**
+
+   Aprendi que um bom dataset é a base de tudo no treinamento de um modelo, porque a qualidade dos dados define o teto da qualidade do resultado. Ajustar o otimizador (Adam) e o número de épocas, sozinhos, não resolve o problema se o dataset não for bom. O dataset, o Adam e as épocas precisam estar alinhados entre si para que o modelo tenha uma eficiência melhor.
+
+4. **Mais Neurônios ou Camadas Não Significam Melhor Desempenho:**
+
+   Dependendo do projeto, ter mais neurônios ou mais camadas não garante um desempenho melhor se a rede não estiver bem configurada. Uma configuração correta pesa mais do que o tamanho da rede.
+
+5. **Evolução do Projeto: de Dados Fixos para Dados Dinâmicos:**
+
+   No início, os dados estavam fixos, escritos direto no código e concentrados em um único arquivo. Conforme o projeto cresceu, vi a necessidade de evoluir e separei as responsabilidades: criei um arquivo próprio para o dataset (`Bateria.csv`), que passou a receber dados dinâmicos inseridos via `input` e validados antes de serem salvos, e um arquivo de prints (`Prints.py`) para centralizar as mensagens do programa. Com isso, o código principal ficou mais limpo, organizado e fácil de manter.
+
 ---
 
 ## 🛠️ Stack Tecnológica e Referências
 
 Para manter o código-fonte limpo, direto e sem poluição de comentários excessivos, as bibliotecas, classes, métodos e hiperparâmetros utilizados no script são documentados abaixo com suas respectivas referências oficiais:
 
-### 1. Manipulação de Dados (`NumPy`)
+### 1. Manipulação de Dados (`NumPy` e `pandas`)
 
 - **`np.array`**: Cria tabelas estruturadas de dados (arrays multidimensionais) para processamento no TensorFlow. ([Documentação numpy.array](https://numpy.org/doc/stable/reference/generated/numpy.array.html))
 
 - **`dtype=np.float32`**: Define o tipo de dado como decimal de 32 bits, padrão utilizado em modelos de precisão simples no TensorFlow. ([Documentação Tipos NumPy](https://numpy.org/doc/stable/user/basics.types.html))
+
+- **`pd.read_csv`**: Lê o arquivo CSV do dataset e o armazena em um DataFrame. ([Documentação pandas.read_csv](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html))
+
+- **`DataFrame.to_csv` (`mode='a'`)**: Adiciona novas linhas ao final do CSV sem sobrescrever o cabeçalho. ([Documentação DataFrame.to_csv](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html))
 
 ### 2. Construção da Rede Neural (`TensorFlow / Keras`)
 
