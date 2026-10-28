@@ -42,119 +42,85 @@ Abaixo está o script estruturado para o treinamento do modelo. O fluxo está cl
 ```python
 
 # Importa o módulo drive do Google Colab para montar o Google Drive e acessar os arquivos armazenados nele.
-
 from google.colab import drive
-
 # Monta o Google Drive para acessar os arquivos no caminho ("/content/drive").
-
 drive.mount("/content/drive")
 
 # Importa as bibliotecas
-
 import numpy as np
-
 import tensorflow as tf
-
 import pandas as pd
 
 # Avisa ao python em qual pasta procuar o arquivo que será importado.
-
 import sys
 
 # Adicona a pasta do drive na lista de caminhos do Python para que ele encontre o arquivo que será importado.
-
 sys.path.append("/content/drive/MyDrive/Primus/Prints")
 
 # Importa o módulo Prints, que contém funções para exibir os resultados de forma organizada.
-
 import Prints
 
 # Define o caminho do arquivo CSV contendo os dados do dataset.
-
 caminho = "/content/drive/MyDrive/Primus/Dataset/Bateria.csv"
 
 # Lê o arquivo CSV contendo os dados do dataset e armazena em um DataFrame do pandas.
-
 bateria = pd.read_csv(caminho)
 
 # Solicita ao usuário que insira os valores de carga e distância para prever o gasto de bateria.
-
 carga = float(input("Digite a carga (kg): "))
 
 distancia = float(input("Digite a distância (km): "))
 
 # Define os limites de carga mínima e máxima para validação dos dados inseridos pelo usuário.
-
 cargaMin, cargaMax = 1.0, 100
 
 # Define os limites de distância mínima e máxima para validação dos dados inseridos pelo usuário.
-
 distanciaMin, distanciaMax = 1.0, 9.0
 
 # Verifica se a carga digitada não está entre o mínimo e o máximo, se é inválida.
-
 if not (cargaMin <= carga <= cargaMax):
-
     print(f"Erro: Carga ({carga} kg) fora do limite físico permitido ({cargaMin} a {cargaMax} kg). Dado não salvo.")
-
 # Verifica se a distância digitada não está entre o mínimo e o máximo, se é inválida.
-
 elif not (distanciaMin <= distancia <= distanciaMax):
-
     print(f"Erro: Distância ({distancia} km) fora do limite permitido ({distanciaMin} a {distanciaMax} km). Dado não salvo.")
-
 # Se os dados de entrada forem válidos, o fluxo de treinamento começa aqui.
-
 else:
-
     # ==================================================================================================== #
 
     # Etapa 1 e 2; Dados e Preparo: Junta os exemplos com a resposta certa e converte as listas para arrays np com float32, que é o tipo que o TensorFlow entende.
-
     medicoes_viagens = np.array(bateria[["Carga", "Distância"]], dtype=np.float32)
-
     gasto_viagens = np.array(bateria[["Gasto"]], dtype=np.float32)
 
     # ==================================================================================================== #
 
     # Etapa 3 Criar o modelo: Duas entradas "(Input/shape=(2,))," e uma camada "Dense" com 1 neurônio.
-
     modelo = tf.keras.Sequential([
-
         tf.keras.layers.Input(shape=(2,)),
-
         tf.keras.layers.Dense(1)
-
     ])
 
     # ==================================================================================================== #
 
     # Etapa 4 Compilar o modelo: Escolher o otimizador e a função de perda.
-
     modelo.compile(optimizer=tf.keras.optimizers.Adam(0.05), loss="mse")
 
     # ==================================================================================================== #
 
-    # Etapa 5 Treinar o modelo: Ajustar a regra pra errar menos, repetindo por 500 epochs (passadas) sobre os dados, verbose=0 pra não mostrar o progresso na tela.
-
+    # Etapa 5 Treinar o modelo: Ajustar a regra pra errar menos, repetindo por 1300 epochs (passadas) sobre os dados, verbose=0 pra não mostrar o progresso na tela.
     modelo.fit(medicoes_viagens, gasto_viagens, epochs=500, verbose=0)
 
     # Após o fit rodar, o Keras guarda o histórico"(history) objeto" dentro do próprio modelo:
-
     perdas = modelo.history.history["loss"][-1]
 
     # ==================================================================================================== #
 
     # Etapa 6 Usar o modelo: Prever o gasto de bateria pra uma nova viagem, com os dados validados.
-
     nova_viagem = np.array([[carga, distancia]], dtype=np.float32)
 
     # Prever o gasto de bateria usando o modelo treinado, numpy() converte o tensor de saída em array NumPy, permitindo usar [0][0] sem alterar o restante
-
     gasto_previsto = modelo(nova_viagem, training=False).numpy()
 
     # Pegar os pesos e vieses(bias) da camada final do modelo, que são os parâmetros aprendidos durante o treinamento.
-
     pesos, vies = modelo.layers[-1].get_weights()
 
     # ==================================================================================================== #
@@ -162,33 +128,22 @@ else:
     # Etapa 7 Salvar os dados no CSV: Se o gasto previsto for válido, salva os dados no arquivo CSV.
 
     # Calcula o gasto previsto para os valores inseridos pelo usuário
-
     gasto_calculado = float(gasto_previsto[0][0])
 
     # Como o gasto é em porcentagem (%), ele nunca pode ser negativo nem estourar 100%
-
     gasto_min, gasto_max = 0.0, 100.0
 
     # Verifica se o gasto previsto não está entre o mínimo e o maximo, se é inválido. Se for inválido, mostra um alerta e não salva o dado no CSV.
-
     if not (gasto_min <= gasto_calculado <= gasto_max):
-
         print(f"Alerta: A previsão de gasto ({gasto_calculado:.2f}%) é fisicamente impossível. Possível ponto fora da curva. Dado descartado.")
-
     else:
-
         # Se passou em tudo, salva no CSV de forma limpa com mode='a' no pd.DataFrame, sem sobrescrever o cabeçalho e sem salvar o índice.
-
         pd.DataFrame(
-
             [[carga, distancia, gasto_calculado]],
-
             columns=["Carga", "Distância", "Gasto"]
-
         ).to_csv(caminho, mode='a', header=False, index=False)
 
     # Mostra os resultados na tela, incluindo os pesos e vieses aprendidos pelo modelo, bem como o gasto previsto para a viagem.
-
     Prints.mostrar_resultados(carga, distancia, perdas, pesos, vies, gasto_previsto)
 
 ```
