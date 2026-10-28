@@ -155,7 +155,9 @@ else:
 
 Resultados gráficos e visualizações do treinamento do modelo:
 
-![Resultado do Treino](imagens/imagem.jpg)
+![Saída do resultado do Treino](imagens/imagem.jpg)
+
+![Para importar e usar o drive no Colab](imagens/imagem.jpg)
 
 ---
 
