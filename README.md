@@ -106,7 +106,7 @@ else:
 
     # ==================================================================================================== #
 
-    # Etapa 5 Treinar o modelo: Ajustar a regra pra errar menos, repetindo por 1300 epochs (passadas) sobre os dados, verbose=0 pra não mostrar o progresso na tela.
+    # Etapa 5 Treinar o modelo: Ajustar a regra pra errar menos, repetindo por 500 epochs (passadas) sobre os dados, verbose=0 pra não mostrar o progresso na tela.
     modelo.fit(medicoes_viagens, gasto_viagens, epochs=500, verbose=0)
 
     # Após o fit rodar, o Keras guarda o histórico"(history) objeto" dentro do próprio modelo:
