@@ -148,7 +148,11 @@ else:
     Prints.mostrar_resultados(carga, distancia, perdas, pesos, vies, gasto_previsto)
 
 ```
+### Arquivo de prints
+[Prints.py](Prints/Prints.py)
 
+### Arquivo do dataset
+[Bateria.csv](Dataset/Bateria.csv)
 ---
 
 ## 🖼️ Imagens do Projeto
